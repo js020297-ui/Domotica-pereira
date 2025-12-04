@@ -189,13 +189,20 @@ document.getElementById('pedidoForm').addEventListener('submit', function(e){
     const direccion = document.getElementById('direccion').value.trim();
     const comentarios = document.getElementById('comentarios').value.trim();
 
-    let mensaje = '🏠 *NUEVO PEDIDO - Sistemas Domóticos Integrados*\\n\\n';
-    mensaje += '👤 *Cliente:* ' + nombre + '\\n';
-    mensaje += '📱 *WhatsApp cliente:* ' + telCliente + '\\n';
-    if(direccion) mensaje += '📍 *Dirección:* ' + direccion + '\\n';
-    mensaje += '\\n📦 *Combos seleccionados:*\\n' + combosTexto + '\\n';
-    if(comentarios) mensaje += '\\n💬 *Comentarios:* ' + comentarios + '\\n';
-    mensaje += '\\n*Enviado desde la web oficial.*';
+let mensaje  = '🏠 NUEVO PEDIDO - Sistemas Domóticos Integrados';
+mensaje += '\n\n👤 Cliente: ' + nombre;
+mensaje += '\n📱 WhatsApp cliente: ' + telCliente;
+if (direccion) mensaje += '\n📍 Dirección: ' + direccion;
+
+mensaje += '\n\n📦 Combos seleccionados:';
+mensaje += '\n' + combosTexto;
+
+if (comentarios) {
+  mensaje += '\n\n💬 Comentarios: ' + comentarios;
+}
+
+mensaje += '\n\n*Enviado desde la web oficial.*';
+
 
     const whatsappNumber = '573233384428'; // número destino en formato internacional sin +
     const url = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(mensaje);
