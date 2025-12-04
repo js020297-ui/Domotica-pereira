@@ -1,209 +1,509 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistemas Domóticos Integrados</title>
-    <meta name="theme-color" content="#1e3a8a">
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-        body{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;min-height:100vh;padding:16px}
-        header{text-align:center;margin-bottom:20px}
-        h1{font-size:2.2em;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,0.3)}
-        .subtitle{font-size:1em;opacity:0.95}
-        .section{margin:22px 0}
-        .section h2{text-align:center;font-size:1.5em;margin-bottom:14px}
-        .combo{background:#fff;color:#111;margin:10px 0;padding:16px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.25);display:flex;gap:12px;align-items:flex-start}
-        .combo input[type=checkbox]{transform:scale(1.5);margin-top:4px}
-        .combo-content{flex:1}
-        .combo-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-        .combo-title h3{color:#1e3a8a;font-size:1.1em}
-        .price{font-size:1.2em;color:#10b981;font-weight:800}
-        .items{list-style:none;font-size:0.95em}
-        .items li{margin:3px 0}
-        .items li::before{content:"• ";color:#10b981;font-weight:bold}
-        #pedidoForm{background:#fff;color:#111;padding:20px;border-radius:16px;margin:26px 0;box-shadow:0 12px 32px rgba(0,0,0,0.28)}
-        #pedidoForm h2{text-align:center;color:#1e3a8a;margin-bottom:10px}
-        input,textarea{width:100%;padding:12px;border-radius:10px;border:2px solid #e5e7eb;margin:8px 0;font-size:1em}
-        input:focus,textarea:focus{outline:none;border-color:#10b981}
-        button{width:100%;margin-top:10px;padding:16px;border:none;border-radius:12px;background:linear-gradient(45deg,#25d366,#128c7e);color:#fff;font-size:1.1em;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(37,211,102,0.45);transition:transform 0.2s}
-        button:hover{transform:scale(1.03)}
-        .footnote{text-align:center;font-size:0.85em;opacity:0.85;margin-top:6px}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistemas Domóticos Integrados</title>
+  <meta name="theme-color" content="#020617">
+  <style>
+    :root{
+      --bg:#020617;
+      --bg-card:#020617;
+      --gradient:linear-gradient(135deg,#22c55e,#06b6d4);
+      --border:#1e293b;
+      --text:#e5e7eb;
+      --accent:#22c55e;
+      --accent-soft:rgba(34,197,94,0.15);
+      --danger:#fb7185;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif}
+    body{
+      min-height:100vh;
+      background:radial-gradient(circle at top,#1e293b 0,#020617 55%);
+      color:var(--text);
+      padding:16px;
+      display:flex;
+      justify-content:center;
+    }
+    .shell{
+      width:100%;
+      max-width:1080px;
+    }
+    header{
+      text-align:center;
+      margin-bottom:18px;
+      padding:16px 12px 10px;
+      border-radius:18px;
+      background:radial-gradient(circle at top,#0f172a 0,#020617 55%);
+      border:1px solid rgba(148,163,184,0.35);
+      box-shadow:0 18px 60px rgba(15,23,42,0.9);
+    }
+    header h1{
+      font-size:2rem;
+      letter-spacing:.04em;
+    }
+    header h1 span{
+      background:var(--gradient);
+      -webkit-background-clip:text;
+      color:transparent;
+    }
+    header p{
+      margin-top:6px;
+      font-size:.95rem;
+      opacity:.9;
+    }
+    .pill-row{
+      margin-top:10px;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:.78rem;
+      border:1px solid rgba(148,163,184,0.55);
+      background:rgba(15,23,42,0.8);
+    }
+    .pill.green{border-color:rgba(34,197,94,0.6);background:rgba(21,128,61,0.32);color:#bbf7d0}
+    .section-title{
+      margin:18px 0 10px;
+      text-align:left;
+      font-size:1.15rem;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .section-title span.icon{
+      font-size:1.25rem;
+    }
+    .combos-grid{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    @media(min-width:800px){
+      .combos-grid{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+    .combo{
+      position:relative;
+      border-radius:18px;
+      padding:14px 14px 12px;
+      background:radial-gradient(circle at top left,#020617 0,#020617 45%,#020617 100%);
+      border:1px solid var(--border);
+      box-shadow:0 18px 45px rgba(15,23,42,0.8);
+      overflow:hidden;
+    }
+    .combo::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      opacity:.18;
+      background:radial-gradient(circle at top left,#22c55e 0,transparent 55%);
+      pointer-events:none;
+    }
+    .combo-inner{position:relative;display:flex;gap:10px;align-items:flex-start;z-index:1}
+    .combo-check{
+      margin-top:4px;
+      flex:none;
+    }
+    .combo-check input[type=checkbox]{
+      width:20px;height:20px;
+      accent-color:#22c55e;
+      cursor:pointer;
+    }
+    .combo-body{flex:1;min-width:0}
+    .combo-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .combo-name{
+      font-weight:700;
+      font-size:.98rem;
+    }
+    .combo-tag{
+      font-size:.7rem;
+      text-transform:uppercase;
+      padding:2px 7px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      background:rgba(15,23,42,0.9);
+    }
+    .chip{
+      font-size:.7rem;
+      padding:1px 7px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.5);
+      background:rgba(15,23,42,0.8);
+      margin-left:4px;
+    }
+    .price{
+      text-align:right;
+      font-weight:800;
+      font-size:1rem;
+      color:#bbf7d0;
+    }
+    .price span{
+      font-size:.8rem;
+      font-weight:500;
+      opacity:.8;
+    }
+    ul.spec{
+      list-style:none;
+      margin-top:4px;
+      font-size:.86rem;
+      color:#cbd5f5;
+    }
+    ul.spec li{
+      margin:2px 0;
+    }
+    ul.spec li::before{
+      content:"• ";
+      color:#22c55e;
+      font-weight:bold;
+    }
+    .hint{
+      font-size:.72rem;
+      opacity:.75;
+      margin-top:4px;
+    }
+    /* FORM */
+    #pedidoForm{
+      margin-top:22px;
+      padding:18px 14px 16px;
+      border-radius:18px;
+      background:radial-gradient(circle at top,#020617 0,#020617 55%,#000 100%);
+      border:1px solid rgba(148,163,184,0.5);
+      box-shadow:0 20px 55px rgba(15,23,42,0.95);
+    }
+    #pedidoForm h2{
+      font-size:1.1rem;
+      margin-bottom:8px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .form-row{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media(min-width:700px){
+      .form-row.two{
+        flex-direction:row;
+      }
+      .form-row.two > div{flex:1}
+    }
+    label.field{
+      font-size:.8rem;
+      margin-bottom:2px;
+      display:block;
+      color:#cbd5e1;
+    }
+    input,textarea{
+      width:100%;
+      padding:9px 11px;
+      border-radius:10px;
+      border:1px solid rgba(51,65,85,0.9);
+      background:#020617;
+      color:var(--text);
+      font-size:.9rem;
+    }
+    input:focus,textarea:focus{
+      outline:1px solid var(--accent);
+      border-color:var(--accent);
+    }
+    textarea{min-height:70px;resize:vertical}
+    .btn{
+      margin-top:14px;
+      width:100%;
+      padding:13px;
+      border-radius:999px;
+      border:none;
+      background:var(--gradient);
+      color:#0f172a;
+      font-weight:800;
+      font-size:1rem;
+      cursor:pointer;
+      box-shadow:0 14px 40px rgba(34,197,94,0.55);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    .btn span.icon{font-size:1.2rem}
+    .foot{
+      margin-top:8px;
+      font-size:.75rem;
+      text-align:center;
+      color:#9ca3af;
+    }
+    .foot strong{color:#e5e7eb}
+  </style>
 </head>
 <body>
-<header>
-    <h1>🏠 Sistemas Domóticos Integrados</h1>
-    <p class="subtitle">Combos de domótica Smart con pedido directo por WhatsApp</p>
-</header>
+<div class="shell">
+  <header>
+    <h1>🏠 <span>Sistemas Domóticos Integrados</span></h1>
+    <p>Combos de domótica Smart listos para instalar en tu hogar, con pedido directo por WhatsApp.</p>
+    <div class="pill-row">
+      <div class="pill green">Tuya / SmartLife • WiFi</div>
+      <div class="pill">Instalación en Pereira y alrededores</div>
+      <div class="pill">Precios referenciales con base AliExpress</div>
+    </div>
+  </header>
 
-<div class="section">
-    <h2>⭐ Combos básicos</h2>
-
+  <!-- BÁSICOS -->
+  <h2 class="section-title"><span class="icon">⭐</span>Combos básicos</h2>
+  <div class="combos-grid">
     <label class="combo">
-        <input type="checkbox" name="combo" value="Combo básico 1: 2 interruptor sencillo Smart, 1 toma corriente Smart">
-        <div class="combo-content">
-            <div class="combo-title">
-                <h3>Combo básico 1</h3>
-                <span class="price">$ (definir)</span>
-            </div>
-            <ul class="items">
-                <li>2 interruptor sencillo Smart</li>
-                <li>1 toma corriente Smart</li>
-            </ul>
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo básico 1 — aprox 30 USD: 2 interruptor sencillo Smart, 1 toma corriente Smart">
         </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo básico 1</div>
+              <div class="combo-tag">Inicio iluminación</div>
+            </div>
+            <div class="price">≈ 30 USD <span>(~120.000 COP)</span></div>
+          </div>
+          <ul class="spec">
+            <li>2 interruptor sencillo Smart (≈ 10–13 USD cada uno)[web:137][web:142]</li>
+            <li>1 toma corriente Smart empotrable (≈ 12–15 USD)[web:138][web:148]</li>
+          </ul>
+        </div>
+      </div>
     </label>
 
     <label class="combo">
-        <input type="checkbox" name="combo" value="Combo básico 2: 2 interruptor sencillo Smart, 1 interruptor doble Smart, 2 toma corriente Smart">
-        <div class="combo-content">
-            <div class="combo-title">
-                <h3>Combo básico 2</h3>
-                <span class="price">$ (definir)</span>
-            </div>
-            <ul class="items">
-                <li>2 interruptor sencillo Smart</li>
-                <li>1 interruptor doble Smart</li>
-                <li>2 toma corriente Smart</li>
-            </ul>
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo básico 2 — aprox 55 USD: 2 interruptor sencillo Smart, 1 interruptor doble Smart, 2 tomas Smart">
         </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo básico 2</div>
+              <div class="combo-tag">Sala + habitación</div>
+            </div>
+            <div class="price">≈ 55 USD <span>(~220.000 COP)</span></div>
+          </div>
+          <ul class="spec">
+            <li>2 interruptor sencillo Smart (≈ 10–13 USD c/u)[web:137]</li>
+            <li>1 interruptor doble Smart (≈ 15–18 USD)[web:135][web:142]</li>
+            <li>2 tomas corrientes Smart (≈ 12–15 USD c/u)[web:138][web:148]</li>
+          </ul>
+        </div>
+      </div>
     </label>
 
     <label class="combo">
-        <input type="checkbox" name="combo" value="Combo básico 3: 1 interruptor sencillo Smart, 1 interruptor doble Smart, 1 interruptor triple Smart, 2 toma corriente Smart">
-        <div class="combo-content">
-            <div class="combo-title">
-                <h3>Combo básico 3</h3>
-                <span class="price">$ (definir)</span>
-            </div>
-            <ul class="items">
-                <li>1 interruptor sencillo Smart</li>
-                <li>1 interruptor doble Smart</li>
-                <li>1 interruptor triple Smart</li>
-                <li>2 toma corriente Smart</li>
-            </ul>
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo básico 3 — aprox 70 USD: 1 interruptor sencillo, 1 doble, 1 triple y 2 tomas Smart">
         </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo básico 3</div>
+              <div class="combo-tag">Apartamento completo</div>
+            </div>
+            <div class="price">≈ 70 USD <span>(~280.000 COP)</span></div>
+          </div>
+          <ul class="spec">
+            <li>1 interruptor sencillo Smart (≈ 10–13 USD)[web:137]</li>
+            <li>1 interruptor doble Smart (≈ 15–18 USD)[web:142]</li>
+            <li>1 interruptor triple Smart (≈ 18–22 USD)[web:137][web:152]</li>
+            <li>2 tomas corrientes Smart (≈ 12–15 USD c/u)[web:138]</li>
+          </ul>
+        </div>
+      </div>
     </label>
-</div>
+  </div>
 
-<div class="section">
-    <h2>⚡ Combos avanzados</h2>
-
+  <!-- AVANZADOS -->
+  <h2 class="section-title"><span class="icon">⚡</span>Combos avanzados y seguridad</h2>
+  <div class="combos-grid">
     <label class="combo">
-        <input type="checkbox" name="combo" value="Combo avanzado 1: 1 interruptor sencillo Smart, 1 interruptor doble Smart, 1 toma corriente Smart, 1 sensor puerta Smart, 1 cámara wifi">
-        <div class="combo-content">
-            <div class="combo-title">
-                <h3>Combo avanzado 1</h3>
-                <span class="price">$ (definir)</span>
-            </div>
-            <ul class="items">
-                <li>1 interruptor sencillo Smart</li>
-                <li>1 interruptor doble Smart</li>
-                <li>1 toma corriente Smart</li>
-                <li>1 sensor puerta Smart</li>
-                <li>1 cámara wifi</li>
-            </ul>
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo avanzado 1 — aprox 75 USD: 1 interruptor sencillo, 1 doble, 1 toma, 1 sensor puerta, 1 cámara wifi">
         </div>
-    </label>
-
-    <label class="combo">
-        <input type="checkbox" name="combo" value="Combo avanzado 2: 2 interruptor sencillo Smart, 3 interruptor doble Smart, 3 toma corriente Smart, 1 cámara interior wifi, 1 cámara exterior wifi, 3 sensores puerta/ventana Smart">
-        <div class="combo-content">
-            <div class="combo-title">
-                <h3>Combo avanzado 2</h3>
-                <span class="price">$ (definir)</span>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo avanzado 1</div>
+              <div class="combo-tag">Iluminación + 1 zona segura</div>
             </div>
-            <ul class="items">
-                <li>2 interruptor sencillo Smart</li>
-                <li>3 interruptor doble Smart</li>
-                <li>3 toma corriente Smart</li>
-                <li>1 cámara interior wifi</li>
-                <li>1 cámara exterior wifi</li>
-                <li>3 sensores (puerta o ventana) Smart</li>
-            </ul>
+            <div class="price">≈ 75 USD <span>(~300.000 COP)</span></div>
+          </div>
+          <ul class="spec">
+            <li>1 interruptor sencillo + 1 doble Smart (≈ 25–30 USD total)[web:137][web:142]</li>
+            <li>1 toma Smart (≈ 12–15 USD)[web:138]</li>
+            <li>1 sensor puerta/ventana WiFi (≈ 6–8 USD)[web:139][web:144]</li>
+            <li>1 cámara wifi interior HD (≈ 20–25 USD)[web:145]</li>
+          </ul>
         </div>
+      </div>
     </label>
 
     <label class="combo">
-        <input type="checkbox" name="combo" value="Combo avanzado 3: 4 interruptor sencillo Smart, 2 toma corriente Smart, 2 interruptor doble Smart, 2 sensores puerta/ventana Smart, 1 interruptor triple Smart, 1 cámara wifi interior/exterior">
-        <div class="combo-content">
-            <div class="combo-title">
-                <h3>Combo avanzado 3</h3>
-                <span class="price">$ (definir)</span>
-            </div>
-            <ul class="items">
-                <li>4 interruptor sencillo Smart</li>
-                <li>2 toma corriente Smart</li>
-                <li>2 interruptor doble Smart</li>
-                <li>2 sensores (puerta o ventana) Smart</li>
-                <li>1 interruptor triple Smart</li>
-                <li>1 cámara wifi (exterior o interior)</li>
-            </ul>
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo avanzado 2 — aprox 155 USD: 2 interruptor sencillo, 3 dobles, 3 tomas, 2 cámaras (int+ext), 3 sensores puerta/ventana">
         </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo avanzado 2</div>
+              <div class="combo-tag">Casa con videovigilancia</div>
+            </div>
+            <div class="price">≈ 155 USD <span>(~620.000 COP)</span></div>
+          </div>
+          <ul class="spec">
+            <li>2 interruptor sencillo + 3 dobles (≈ 55–65 USD)[web:137][web:142]</li>
+            <li>3 tomas Smart (≈ 36–45 USD)[web:138]</li>
+            <li>1 cámara interior + 1 exterior Tuya (≈ 40–50 USD total)[web:145][web:150]</li>
+            <li>3 sensores puerta/ventana WiFi (≈ 18–24 USD)[web:139][web:144]</li>
+          </ul>
+        </div>
+      </div>
     </label>
 
     <label class="combo">
-        <input type="checkbox" name="combo" value="Combo 4 Alarma Smart: 1 panel, 1 cámara wifi interior/exterior, 2 sensores puerta/ventana Smart, 2 sensores movimiento, 1 sirena, 1 botón pánico, 2 control remoto">
-        <div class="combo-content">
-            <div class="combo-title">
-                <h3>Combo 4 Alarma Smart</h3>
-                <span class="price">$ (definir)</span>
-            </div>
-            <ul class="items">
-                <li>1 panel</li>
-                <li>1 cámara wifi (interior o exterior)</li>
-                <li>2 sensores (puerta o ventana) Smart</li>
-                <li>2 sensores movimiento</li>
-                <li>1 sirena</li>
-                <li>1 botón pánico</li>
-                <li>2 control remoto</li>
-            </ul>
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo avanzado 3 — aprox 145 USD: 4 interruptores sencillos, 2 dobles, 1 triple, 2 tomas, 2 sensores puerta/ventana, 1 cámara wifi">
         </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo avanzado 3</div>
+              <div class="combo-tag">Iluminación total + 1 cámara</div>
+            </div>
+            <div class="price">≈ 145 USD <span>(~580.000 COP)</span></div>
+          </div>
+          <ul class="spec">
+            <li>4 interruptores sencillos + 2 dobles + 1 triple (≈ 80–90 USD)[web:137][web:142][web:152]</li>
+            <li>2 tomas inteligentes (≈ 24–30 USD)[web:138]</li>
+            <li>2 sensores puerta/ventana (≈ 12–16 USD)[web:139][web:144]</li>
+            <li>1 cámara wifi interior/exterior (≈ 25–30 USD)[web:145][web:150]</li>
+          </ul>
+        </div>
+      </div>
     </label>
-</div>
 
-<form id="pedidoForm">
+    <label class="combo">
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo 4 Alarma Smart — aprox 120 USD: panel, cámara wifi, 2 sensores puerta/ventana, 2 sensores movimiento, sirena, botón pánico, 2 controles">
+        </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo 4 Alarma Smart</div>
+              <div class="combo-tag">Kit alarma completo</div>
+              <span class="chip">Ideal entrada principal</span>
+            </div>
+            <div class="price">≈ 120 USD <span>(~480.000 COP)</span></div>
+          </div>
+          <ul class="spec">
+            <li>Panel/central de alarma WiFi Tuya (≈ 45–55 USD)[web:151]</li>
+            <li>1 cámara wifi (interior o exterior) (≈ 25–30 USD)[web:145][web:150]</li>
+            <li>2 sensores puerta/ventana + 2 de movimiento (≈ 25–30 USD)[web:139][web:144]</li>
+            <li>Sirena inteligente + botón pánico + 2 controles (≈ 20–25 USD)[web:141][web:146]</li>
+          </ul>
+        </div>
+      </div>
+    </label>
+  </div>
+
+  <!-- FORMULARIO -->
+  <form id="pedidoForm">
     <h2>📋 Datos del pedido</h2>
-    <input type="text" id="nombre" placeholder="👤 Nombre completo" required>
-    <input type="tel" id="telCliente" placeholder="📱 Tu WhatsApp" required>
-    <input type="text" id="direccion" placeholder="📍 Dirección (ciudad/barrio)">
-    <textarea id="comentarios" rows="3" placeholder="💬 Comentarios o requerimientos especiales"></textarea>
-    <button type="submit">📲 Enviar pedido por WhatsApp</button>
-    <p class="footnote">El mensaje se abrirá en un chat directo con Sistemas Domóticos Integrados.</p>
-</form>
+    <div class="form-row two">
+      <div>
+        <label class="field" for="nombre">Nombre completo</label>
+        <input id="nombre" type="text" required placeholder="Ej: Jhonatan Pérez">
+      </div>
+      <div>
+        <label class="field" for="telCliente">Tu WhatsApp</label>
+        <input id="telCliente" type="tel" required placeholder="Ej: 318 000 0000">
+      </div>
+    </div>
+
+    <div class="form-row two">
+      <div>
+        <label class="field" for="direccion">Ciudad / barrio</label>
+        <input id="direccion" type="text" placeholder="Ej: Pereira, Alamos">
+      </div>
+      <div>
+        <label class="field" for="comentarios">Comentarios</label>
+        <textarea id="comentarios" placeholder="Ej: quiero instalar en sala y 2 habitaciones."></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="btn">
+      <span class="icon">📲</span>
+      Enviar pedido por WhatsApp
+    </button>
+    <p class="foot">
+      Los valores mostrados son una referencia basada en precios promedio de AliExpress para equipos Tuya; la cotización final incluye importación, instalación y soporte local.
+    </p>
+  </form>
+
+  <p class="foot">
+    <strong>WhatsApp directo:</strong> +57 323 338 4428
+  </p>
+</div>
 
 <script>
 document.getElementById('pedidoForm').addEventListener('submit', function(e){
-    e.preventDefault();
+  e.preventDefault();
 
-    const seleccionados = Array.from(
-        document.querySelectorAll('input[name="combo"]:checked')
-    ).map(cb => '• ' + cb.value);
+  const seleccionados = Array.from(
+    document.querySelectorAll('input[name="combo"]:checked')
+  ).map(cb => '• ' + cb.value);
 
-    const combosTexto = seleccionados.length
-        ? seleccionados.join('%0A')
-        : 'Cliente solicita asesoría y combo personalizado';
+  const combosTexto = seleccionados.length
+    ? seleccionados.join('%0A')
+    : 'Cliente solicita asesoría y combo personalizado';
 
-    const nombre     = encodeURIComponent(document.getElementById('nombre').value.trim());
-    const telCliente = encodeURIComponent(document.getElementById('telCliente').value.trim());
-    const direccion  = encodeURIComponent(document.getElementById('direccion').value.trim());
-    const comentarios= encodeURIComponent(document.getElementById('comentarios').value.trim());
+  const nombre      = encodeURIComponent(document.getElementById('nombre').value.trim());
+  const telCliente  = encodeURIComponent(document.getElementById('telCliente').value.trim());
+  const direccion   = encodeURIComponent(document.getElementById('direccion').value.trim());
+  const comentarios = encodeURIComponent(document.getElementById('comentarios').value.trim());
 
-    // Armamos todo usando %0A como salto de línea en la URL
-    let mensaje = '🏠 NUEVO PEDIDO - Sistemas Domóticos Integrados';
-    mensaje += '%0A%0A👤 Cliente: ' + nombre;
-    mensaje += '%0A📱 WhatsApp cliente: ' + telCliente;
-    if (direccion)  mensaje += '%0A📍 Dirección: ' + direccion;
-    mensaje += '%0A%0A📦 Combos seleccionados:%0A' + combosTexto;
-    if (comentarios) mensaje += '%0A%0A💬 Comentarios: ' + comentarios;
-    mensaje += '%0A%0A*Enviado desde la web oficial.*';
+  let mensaje  = '🏠 NUEVO PEDIDO - Sistemas Domóticos Integrados';
+  mensaje += '%0A%0A👤 Cliente: ' + nombre;
+  mensaje += '%0A📱 WhatsApp cliente: ' + telCliente;
+  if (direccion)  mensaje += '%0A📍 Dirección: ' + direccion;
+  mensaje += '%0A%0A📦 Combos seleccionados:%0A' + combosTexto;
+  if (comentarios) mensaje += '%0A%0A💬 Comentarios: ' + comentarios;
+  mensaje += '%0A%0A*Enviado desde la web oficial.*';
 
-    const whatsappNumber = '573233384428';
-    const url = 'https://wa.me/' + whatsappNumber + '?text=' + mensaje;
-    window.location.href = url;
+  const whatsappNumber = '573233384428';
+  const url = 'https://wa.me/' + whatsappNumber + '?text=' + mensaje;
+  window.location.href = url;
 });
 </script>
-
-
 </body>
 </html>
