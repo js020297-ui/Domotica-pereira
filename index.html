@@ -75,4 +75,378 @@
     }
     .combo-inner{position:relative;display:flex;gap:10px;align-items:flex-start;z-index:1}
     .combo-check{margin-top:4px;flex:none}
-    .combo-check input[type=checkbox]{
+    .combo-check input[type=checkbox]{width:20px;height:20px;accent-color:#22c55e;cursor:pointer}
+    .combo-body{flex:1;min-width:0}
+    .combo-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px}
+    .combo-name{font-weight:700;font-size:.98rem}
+    .combo-tag{
+      font-size:.7rem;
+      text-transform:uppercase;
+      padding:2px 7px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      background:rgba(15,23,42,0.9);
+    }
+    .price{
+      text-align:right;
+      font-weight:800;
+      font-size:.9rem;
+      color:#bbf7d0;
+    }
+    .price span{display:block;font-size:.78rem;font-weight:500;opacity:.85}
+    ul.spec{list-style:none;margin-top:4px;font-size:.86rem;color:#cbd5f5}
+    ul.spec li{margin:2px 0}
+    ul.spec li::before{content:"• ";color:#22c55e;font-weight:bold}
+    /* FORM */
+    #pedidoForm{
+      margin-top:22px;
+      padding:18px 14px 16px;
+      border-radius:18px;
+      background:radial-gradient(circle at top,#020617 0,#020617 55%,#000 100%);
+      border:1px solid rgba(148,163,184,0.5);
+      box-shadow:0 20px 55px rgba(15,23,42,0.95);
+    }
+    #pedidoForm h2{
+      font-size:1.1rem;
+      margin-bottom:8px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .form-row{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+    @media(min-width:700px){
+      .form-row.two{flex-direction:row}
+      .form-row.two>div{flex:1}
+    }
+    label.field{font-size:.8rem;margin-bottom:2px;display:block;color:#cbd5e1}
+    input,textarea,select{
+      width:100%;
+      padding:9px 11px;
+      border-radius:10px;
+      border:1px solid rgba(51,65,85,0.9);
+      background:#020617;
+      color:var(--text);
+      font-size:.9rem;
+    }
+    input:focus,textarea:focus,select:focus{
+      outline:1px solid #22c55e;
+      border-color:#22c55e;
+    }
+    textarea{min-height:70px;resize:vertical}
+    .btn{
+      margin-top:14px;
+      width:100%;
+      padding:13px;
+      border-radius:999px;
+      border:none;
+      background:var(--gradient);
+      color:#0f172a;
+      font-weight:800;
+      font-size:1rem;
+      cursor:pointer;
+      box-shadow:0 14px 40px rgba(34,197,94,0.55);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    .btn span.icon{font-size:1.2rem}
+    .foot{margin-top:8px;font-size:.75rem;text-align:center;color:#9ca3af}
+    .foot strong{color:#e5e7eb}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <h1>🏠 <span>Sistemas Domóticos Integrados</span></h1>
+    <p>Combos de domótica Smart listos para instalar, con pedido directo por WhatsApp.</p>
+    <div class="pill-row">
+      <div class="pill green">Tuya / SmartLife • WiFi</div>
+      <div class="pill">Instalación en Pereira y alrededores</div>
+      <div class="pill">Precios referenciales basados en AliExpress</div>
+    </div>
+  </header>
+
+  <!-- BÁSICOS -->
+  <h2 class="section-title"><span class="icon">⭐</span>Combos básicos</h2>
+  <div class="combos-grid">
+    <!-- Básico 1 -->
+    <label class="combo">
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo básico 1 — Kit: 45 USD (~180.000 COP) / Kit + instalación: 70 USD (~280.000 COP)">
+        </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo básico 1</div>
+              <div class="combo-tag">Inicio iluminación</div>
+            </div>
+            <div class="price">
+              Kit: 45 USD (~180.000 COP)
+              <span>Kit + instalación: 70 USD (~280.000 COP)</span>
+            </div>
+          </div>
+          <ul class="spec">
+            <li>2 interruptor sencillo Smart (≈ 10–13 USD c/u)[web:137]</li>
+            <li>1 toma corriente Smart empotrable (≈ 12–15 USD)[web:138][web:148]</li>
+          </ul>
+        </div>
+      </div>
+    </label>
+
+    <!-- Básico 2 -->
+    <label class="combo">
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo básico 2 — Kit: 82 USD (~328.000 COP) / Kit + instalación: 107 USD (~428.000 COP)">
+        </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo básico 2</div>
+              <div class="combo-tag">Sala + habitación</div>
+            </div>
+            <div class="price">
+              Kit: 82 USD (~328.000 COP)
+              <span>Kit + instalación: 107 USD (~428.000 COP)</span>
+            </div>
+          </div>
+          <ul class="spec">
+            <li>2 interruptor sencillo Smart[web:137]</li>
+            <li>1 interruptor doble Smart[web:142]</li>
+            <li>2 tomas corrientes Smart[web:138]</li>
+          </ul>
+        </div>
+      </div>
+    </label>
+
+    <!-- Básico 3 -->
+    <label class="combo">
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo básico 3 — Kit: 105 USD (~420.000 COP) / Kit + instalación: 130 USD (~520.000 COP)">
+        </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo básico 3</div>
+              <div class="combo-tag">Apartamento completo</div>
+            </div>
+            <div class="price">
+              Kit: 105 USD (~420.000 COP)
+              <span>Kit + instalación: 130 USD (~520.000 COP)</span>
+            </div>
+          </div>
+          <ul class="spec">
+            <li>1 interruptor sencillo Smart[web:137]</li>
+            <li>1 interruptor doble Smart[web:142]</li>
+            <li>1 interruptor triple Smart[web:137][web:152]</li>
+            <li>2 tomas corrientes Smart[web:138]</li>
+          </ul>
+        </div>
+      </div>
+    </label>
+  </div>
+
+  <!-- AVANZADOS -->
+  <h2 class="section-title"><span class="icon">⚡</span>Combos avanzados y seguridad</h2>
+  <div class="combos-grid">
+    <!-- Avanzado 1 -->
+    <label class="combo">
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo avanzado 1 — Kit: 112 USD (~448.000 COP) / Kit + instalación: 152 USD (~608.000 COP)">
+        </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo avanzado 1</div>
+              <div class="combo-tag">Iluminación + 1 zona segura</div>
+            </div>
+            <div class="price">
+              Kit: 112 USD (~448.000 COP)
+              <span>Kit + instalación: 152 USD (~608.000 COP)</span>
+            </div>
+          </div>
+          <ul class="spec">
+            <li>Interruptores y toma Smart[web:137][web:138]</li>
+            <li>Sensor puerta/ventana WiFi[web:139][web:144]</li>
+            <li>Cámara WiFi interior HD[web:145]</li>
+          </ul>
+        </div>
+      </div>
+    </label>
+
+    <!-- Avanzado 2 -->
+    <label class="combo">
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo avanzado 2 — Kit: 232 USD (~928.000 COP) / Kit + instalación: 282 USD (~1.130.000 COP)">
+        </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo avanzado 2</div>
+              <div class="combo-tag">Casa con videovigilancia</div>
+            </div>
+            <div class="price">
+              Kit: 232 USD (~928.000 COP)
+              <span>Kit + instalación: 282 USD (~1.130.000 COP)</span>
+            </div>
+          </div>
+          <ul class="spec">
+            <li>Interruptores y tomas Smart para varias zonas[web:137][web:138]</li>
+            <li>Cámara interior + exterior Tuya[web:145][web:150]</li>
+            <li>3 sensores puerta/ventana[web:139][web:144]</li>
+          </ul>
+        </div>
+      </div>
+    </label>
+
+    <!-- Avanzado 3 -->
+    <label class="combo">
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo avanzado 3 — Kit: 217 USD (~868.000 COP) / Kit + instalación: 257 USD (~1.030.000 COP)">
+        </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo avanzado 3</div>
+              <div class="combo-tag">Iluminación total + cámara</div>
+            </div>
+            <div class="price">
+              Kit: 217 USD (~868.000 COP)
+              <span>Kit + instalación: 257 USD (~1.030.000 COP)</span>
+            </div>
+          </div>
+          <ul class="spec">
+            <li>Múltiples interruptores simples/dobles/triple[web:137][web:142][web:152]</li>
+            <li>2 tomas inteligentes[web:138]</li>
+            <li>2 sensores puerta/ventana[web:139][web:144]</li>
+            <li>Cámara WiFi interior/exterior[web:145][web:150]</li>
+          </ul>
+        </div>
+      </div>
+    </label>
+
+    <!-- Alarma 4 -->
+    <label class="combo">
+      <div class="combo-inner">
+        <div class="combo-check">
+          <input type="checkbox" name="combo"
+                 value="Combo 4 Alarma Smart — Kit: 180 USD (~720.000 COP) / Kit + instalación: 230 USD (~920.000 COP)">
+        </div>
+        <div class="combo-body">
+          <div class="combo-header">
+            <div>
+              <div class="combo-name">Combo 4 Alarma Smart</div>
+              <div class="combo-tag">Kit alarma completo</div>
+            </div>
+            <div class="price">
+              Kit: 180 USD (~720.000 COP)
+              <span>Kit + instalación: 230 USD (~920.000 COP)</span>
+            </div>
+          </div>
+          <ul class="spec">
+            <li>Panel de alarma WiFi Tuya[web:151]</li>
+            <li>Cámara WiFi interior/exterior[web:145][web:150]</li>
+            <li>2 sensores puerta/ventana + 2 movimiento[web:139][web:144]</li>
+            <li>Sirena, botón pánico y 2 controles[web:141][web:146]</li>
+          </ul>
+        </div>
+      </div>
+    </label>
+  </div>
+
+  <!-- FORMULARIO -->
+  <form id="pedidoForm">
+    <h2>📋 Datos del pedido</h2>
+
+    <div class="form-row two">
+      <div>
+        <label class="field" for="nombre">Nombre completo</label>
+        <input id="nombre" type="text" required placeholder="Ej: Jhonatan Pérez">
+      </div>
+      <div>
+        <label class="field" for="telCliente">Tu WhatsApp</label>
+        <input id="telCliente" type="tel" required placeholder="Ej: 318 000 0000">
+      </div>
+    </div>
+
+    <div class="form-row two">
+      <div>
+        <label class="field" for="direccion">Ciudad / barrio</label>
+        <input id="direccion" type="text" placeholder="Ej: Pereira, Álamos">
+      </div>
+      <div>
+        <label class="field" for="tipoServicio">¿Solo kit o con instalación?</label>
+        <select id="tipoServicio">
+          <option value="Solo kit (sin instalación)">Solo kit (sin instalación)</option>
+          <option value="Kit + instalación">Kit + instalación</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label class="field" for="comentarios">Comentarios</label>
+        <textarea id="comentarios" placeholder="Ej: quiero instalar en sala y 2 habitaciones."></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="btn">
+      <span class="icon">📲</span>
+      Enviar pedido por WhatsApp
+    </button>
+    <p class="foot">
+      Valores de kits basados en precios promedio AliExpress para equipos Tuya; el precio con instalación incluye mano de obra, configuración y soporte local.
+    </p>
+  </form>
+
+  <p class="foot">
+    <strong>WhatsApp directo:</strong> +57 323 338 4428
+  </p>
+</div>
+
+<script>
+document.getElementById('pedidoForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const seleccionados = Array.from(
+    document.querySelectorAll('input[name="combo"]:checked')
+  ).map(cb => '• ' + cb.value);
+
+  const combosTexto = seleccionados.length
+    ? seleccionados.join('%0A')
+    : 'Cliente solicita asesoría y combo personalizado';
+
+  const nombre      = encodeURIComponent(document.getElementById('nombre').value.trim());
+  const telCliente  = encodeURIComponent(document.getElementById('telCliente').value.trim());
+  const direccion   = encodeURIComponent(document.getElementById('direccion').value.trim());
+  const tipoServ    = encodeURIComponent(document.getElementById('tipoServicio').value);
+  const comentarios = encodeURIComponent(document.getElementById('comentarios').value.trim());
+
+  let mensaje  = '🏠 NUEVO PEDIDO - Sistemas Domóticos Integrados';
+  mensaje += '%0A%0A👤 Cliente: ' + nombre;
+  mensaje += '%0A📱 WhatsApp cliente: ' + telCliente;
+  if (direccion)  mensaje += '%0A📍 Dirección: ' + direccion;
+  mensaje += '%0A🛠 Tipo de servicio: ' + tipoServ;
+  mensaje += '%0A%0A📦 Combos seleccionados:%0A' + combosTexto;
+  if (comentarios) mensaje += '%0A%0A💬 Comentarios: ' + comentarios;
+  mensaje += '%0A%0A*Enviado desde la web oficial.*';
+
+  const whatsappNumber = '573233384428';
+  const url = 'https://wa.me/' + whatsappNumber + '?text=' + mensaje;
+  window.location.href = url;
+});
+</script>
+</body>
+</html>
