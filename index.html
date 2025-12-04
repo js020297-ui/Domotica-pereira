@@ -158,39 +158,46 @@
     </form>
 
     <script>
-        document.getElementById('pedidoForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const combos = Array.from(document.querySelectorAll('input[name="combo"]:checked'))
-                .map(cb => cb.value).join('
-📦 ');
-            
-            const nombre = document.getElementById('nombre').value;
-            const telefono = document.getElementById('telefono').value;
-            const direccion = document.getElementById('direccion').value;
-            const comentarios = document.getElementById('comentarios').value;
-            
-            const mensaje = `🏠 *NUEVO PEDIDO - Sistemas Domóticos Integrados*
+document.getElementById('pedidoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-` +
-                `👤 *Cliente:* ${nombre}
-` +
-                `📱 *Contacto:* ${telefono}
-` +
-                `${direccion ? `📍 *Dirección:* ${direccion}
-` : ''}` +
-                `📦 *PEDIDO:*
-${combos || '❓ Combo personalizado'}
+    // Obtener combos seleccionados
+    const combosChecked = document.querySelectorAll('input[name="combo"]:checked');
+    let combos = [];
+    combosChecked.forEach(cb => combos.push(cb.value));
+    combos = combos.length > 0 ? combos.join('
+📦 ') : '❓ Combo personalizado';
 
-` +
-                `${comentarios ? `💬 *Notas:* ${comentarios}
-` : ''}` +
-                `
-*¡Gracias por confiar en nosotros! 🚀*`;
-            
-            const whatsappNumber = '3233384428';
-            const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
-            window.open(url, '_blank');
-        });
-    </script>
+    // Obtener datos cliente
+    const nombre = document.getElementById('nombre').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const direccion = document.getElementById('direccion').value.trim();
+    const comentarios = document.getElementById('comentarios').value.trim();
+
+    // Crear mensaje WhatsApp
+    let mensaje = `🏠 *NUEVO PEDIDO - Sistemas Domóticos Integrados*
+
+`;
+    mensaje += `👤 *Cliente:* ${nombre}
+`;
+    mensaje += `📱 *Contacto:* ${telefono}
+`;
+    if (direccion) mensaje += `📍 *Dirección:* ${direccion}
+`;
+    mensaje += `📦 *PEDIDO:*
+📦 ${combos}
+
+`;
+    if (comentarios) mensaje += `💬 *Notas:* ${comentarios}
+
+`;
+    mensaje += `*¡Gracias por confiar en nosotros! 🚀*`;
+
+    // Número WhatsApp sin + ni 57
+    const whatsappNumber = '573233384428';
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+});
+</script>
 </body>
 </html>
