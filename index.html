@@ -181,34 +181,29 @@ document.getElementById('pedidoForm').addEventListener('submit', function(e){
     ).map(cb => '• ' + cb.value);
 
     const combosTexto = seleccionados.length
-        ? seleccionados.join('\\n')
+        ? seleccionados.join('%0A')
         : 'Cliente solicita asesoría y combo personalizado';
 
-    const nombre = document.getElementById('nombre').value.trim();
-    const telCliente = document.getElementById('telCliente').value.trim();
-    const direccion = document.getElementById('direccion').value.trim();
-    const comentarios = document.getElementById('comentarios').value.trim();
+    const nombre     = encodeURIComponent(document.getElementById('nombre').value.trim());
+    const telCliente = encodeURIComponent(document.getElementById('telCliente').value.trim());
+    const direccion  = encodeURIComponent(document.getElementById('direccion').value.trim());
+    const comentarios= encodeURIComponent(document.getElementById('comentarios').value.trim());
 
-let mensaje  = '🏠 NUEVO PEDIDO - Sistemas Domóticos Integrados';
-mensaje += '\n\n👤 Cliente: ' + nombre;
-mensaje += '\n📱 WhatsApp cliente: ' + telCliente;
-if (direccion) mensaje += '\n📍 Dirección: ' + direccion;
+    // Armamos todo usando %0A como salto de línea en la URL
+    let mensaje = '🏠 NUEVO PEDIDO - Sistemas Domóticos Integrados';
+    mensaje += '%0A%0A👤 Cliente: ' + nombre;
+    mensaje += '%0A📱 WhatsApp cliente: ' + telCliente;
+    if (direccion)  mensaje += '%0A📍 Dirección: ' + direccion;
+    mensaje += '%0A%0A📦 Combos seleccionados:%0A' + combosTexto;
+    if (comentarios) mensaje += '%0A%0A💬 Comentarios: ' + comentarios;
+    mensaje += '%0A%0A*Enviado desde la web oficial.*';
 
-mensaje += '\n\n📦 Combos seleccionados:';
-mensaje += '\n' + combosTexto;
-
-if (comentarios) {
-  mensaje += '\n\n💬 Comentarios: ' + comentarios;
-}
-
-mensaje += '\n\n*Enviado desde la web oficial.*';
-
-
-    const whatsappNumber = '573233384428'; // número destino en formato internacional sin +
-    const url = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(mensaje);
+    const whatsappNumber = '573233384428';
+    const url = 'https://wa.me/' + whatsappNumber + '?text=' + mensaje;
     window.location.href = url;
 });
 </script>
+
 
 </body>
 </html>
